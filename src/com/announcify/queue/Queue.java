@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import android.content.Context;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 
+import com.announcify.sql.model.PluginModel;
 import com.announcify.tts.Speaker;
 
 public class Queue implements OnUtteranceCompletedListener {
@@ -12,28 +13,34 @@ public class Queue implements OnUtteranceCompletedListener {
 	private final Speaker speaker;
 	private final SleepyThread thread;
 	private final WakeLocker wakeLocker;
+	private final PluginModel model;
 
-	private LinkedList<LinkedList<Object>> queue;
+	private LinkedList<LittleQueue> queue;
 
 	private boolean granted;
 
-	public Queue(Context context, final Speaker speaker) {
+	public Queue(final Context context, final Speaker speaker) {
 		this.context = context;
 		wakeLocker = new WakeLocker(context);
 		this.speaker = speaker;
 		thread = new SleepyThread(this);
+		model = new PluginModel(context);
 	}
 
 	public void grant() {
 		granted = true;
-		if (!wakeLocker.isLocked()) wakeLocker.lock();
+		if (!wakeLocker.isLocked()) {
+			wakeLocker.lock();
+		}
 
 		next();
 	}
 
 	public void deny() {
 		granted = false;
-		if (wakeLocker.isLocked()) wakeLocker.unlock();
+		if (wakeLocker.isLocked()) {
+			wakeLocker.unlock();
+		}
 
 		interrupt();
 	}
@@ -43,19 +50,9 @@ public class Queue implements OnUtteranceCompletedListener {
 			return;
 		}
 
-		if (queue.size() == 0) {
-			end();
-		}
+		checkNext();
 
-		if (queue.getFirst().size() == 0) {
-			finished();
-		}
-
-		if (queue.size() == 0) {
-			end();
-		}
-
-		final Object toDo = queue.getFirst().poll();
+		final Object toDo = queue.getFirst().getNext();
 		if (toDo instanceof String) {
 			speaker.speak((String) toDo);
 		} else if (toDo instanceof Integer) {
@@ -63,33 +60,56 @@ public class Queue implements OnUtteranceCompletedListener {
 		}
 	}
 
+	private void checkNext() {
+		if (queue.size() == 0) {
+			end();
+		}
+
+		if (queue.getFirst().isEmpty()) {
+			queue.getFirst().stop();
+			queue.removeFirst();
+
+			if (model.getActive(queue.getFirst().getPluginName())) {
+				queue.getFirst().start();
+			} else {
+				queue.removeFirst();
+				checkNext();
+			}
+		}
+
+		if (queue.size() == 0) {
+			end();
+		}
+	}
+
 	public void onUtteranceCompleted(final String utteranceId) {
 		next();
 	}
 
-	public void putLast(final LinkedList<Object> list) {
-		queue.add(list);
+	public void putLast(final LittleQueue little) {
+		queue.add(little);
 	}
 
-	public void putFirst(final LinkedList<Object> list) {
-		queue.add(0, list);
+	public void putFirst(final LittleQueue little) {
+		queue.add(0, little);
 		interrupt();
 		next();
 	}
 
-	public void interrupt() {
+	private void interrupt() {
 		thread.interrupt();
 		speaker.interrupt();
 	}
 
-	private void finished() {
-		// TODO: save list-head (Serializable?) to repeat it later (if user wants to do so, using RemoteControlDialog)
-		queue.removeFirst();
-		// TODO: send broadcast?
-	}
-
 	private void end() {
-		if (wakeLocker.isLocked()) wakeLocker.unlock();
 		// TODO: send broadcast?
+
+		interrupt();
+
+		model.close();
+
+		if (wakeLocker.isLocked()) {
+			wakeLocker.unlock();
+		}
 	}
 }

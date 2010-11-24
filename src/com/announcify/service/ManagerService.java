@@ -1,9 +1,5 @@
 package com.announcify.service;
 
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.LinkedList;
-
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,27 +14,14 @@ import com.announcify.queue.Queue;
 import com.announcify.tts.Speaker;
 
 public class ManagerService extends Service {
-	private static Boolean paid;
-
-	public static boolean isPaid(final Context context) {
-		// TODO: this would not work if user runs the app, donates and runs the
-		// app again!
-		if (paid != null) {
-			return paid;
-		}
-		try {
-			// TODO: change package?
-			context.createPackageContext("com.announcify.paid", 0);
-
-			return true;
-		} catch (final Exception e) {
-			// bad boy... you didn't donate!
-			return false;
-		}
-	}
+	public static final String EXTRA_QUEUE_NAME = "com.announcify.EXTRA_QUEUE_NAME";
+	public static final String EXTRA_QUEUE_START_ACTION = "com.announcify.EXTRA_QUEUE_START_INTENT";
+	public static final String EXTRA_QUEUE_STOP_ACTION = "com.announcify.EXTRA_QUEUE_STOP_INTENT";
+	public static final String EXTRA_QUEUE = "com.announcify.EXTRA_QUEUE";
 
 	private Queue queue;
 	private Speaker speaker;
+	private Boolean paid;
 
 	private ScreenReceiver screenReceiver;
 	private CallReceiver callReceiver;
@@ -60,7 +43,7 @@ public class ManagerService extends Service {
 		// getSystemService(TELEPHONY_SERVICE);
 		// telephonyManager.listen(listener, TelephonyManager.)
 
-		if (isPaid(this)) {
+		if (isPaid()) {
 			controlReceiver = new ControlReceiver();
 			final IntentFilter controlFilter = new IntentFilter();
 			controlFilter.addAction(RemoteControlDialog.ACTION_CONTINUE);
@@ -88,7 +71,16 @@ public class ManagerService extends Service {
 
 	@Override
 	public void onStart(final Intent intent, final int startId) {
-		// TODO: add to queue
+		if (intent != null && intent.getExtras() != null) {
+			// TODO: we have to use Parcelable here!
+			// TODO: make LittleQueue Parcelable
+			// LittleQueue little = new LittleQueue(this,
+			// intent.getStringExtra(EXTRA_QUEUE_NAME),
+			// intent.getStringExtra(EXTRA_QUEUE_START_ACTION),
+			// intent.getStringExtra(EXTRA_QUEUE_STOP_ACTION),
+			// Arrays.asList(intent.getStringArrayExtra(EXTRA_QUEUE)));
+			// queue.putLast(little);
+		}
 	}
 
 	@Override
@@ -101,6 +93,21 @@ public class ManagerService extends Service {
 		}
 		if (controlReceiver != null) {
 			unregisterReceiver(controlReceiver);
+		}
+	}
+
+	public boolean isPaid() {
+		if (paid != null) {
+			return paid;
+		}
+		try {
+			// TODO: change package?
+			createPackageContext("com.announcify.paid", 0);
+
+			return true;
+		} catch (final Exception e) {
+			// bad boy... you didn't donate!
+			return false;
 		}
 	}
 
@@ -117,7 +124,7 @@ public class ManagerService extends Service {
 
 				// shut down if user didn't pay, because he's not able to
 				// continue queue.
-				if (isPaid(ManagerService.this)) {
+				if (isPaid()) {
 					stopSelf();
 				}
 			}
@@ -132,7 +139,7 @@ public class ManagerService extends Service {
 
 				// shut down if user didn't pay, because he's not able to
 				// continue queue.
-				if (isPaid(ManagerService.this)) {
+				if (isPaid()) {
 					stopSelf();
 				}
 			}

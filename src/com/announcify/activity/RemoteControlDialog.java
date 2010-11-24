@@ -8,8 +8,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
 
 import com.announcify.R;
 import com.announcify.service.ManagerService;
@@ -22,7 +20,7 @@ public class RemoteControlDialog extends Activity {
 	private final String[] controls = new String[] {"Pause", "Continue", "Skip", "Kill"};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		final Builder bob = new AlertDialog.Builder(this);
@@ -51,8 +49,8 @@ public class RemoteControlDialog extends Activity {
 			}
 		});
 		bob.setOnCancelListener(new OnCancelListener() {
-			
-			public void onCancel(DialogInterface dialog) {
+
+			public void onCancel(final DialogInterface dialog) {
 				dialog.dismiss();
 				finish();
 			}
