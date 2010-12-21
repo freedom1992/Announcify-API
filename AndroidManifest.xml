@@ -9,56 +9,15 @@
 		android:name="com.announcify.PERMISSION_IM_A_PLUGIN"
 		android:protectionLevel="normal" />
 
-	<uses-permission
-		android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission
-		android:name="android.permission.WAKE_LOCK" />
-
-	<uses-sdk
-		android:minSdkVersion="7"
-		android:targetSdkVersion="8" />
-
-	<application
-		android:icon="@drawable/icon"
-		android:label="@string/app_name">
-		<activity
-			android:name=".activity.Announcify"
-			android:label="@string/app_name">
-			<intent-filter>
-				<action
-					android:name="android.intent.action.MAIN" />
-				<category
-					android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-
-		<activity
-			android:name=".activity.RemoteControlDialog"
-			android:label="@string/app_name"
-			android:theme="@android:style/Theme.Translucent.NoTitleBar">
-			<intent-filter>
-				<action
-					android:name="android.intent.action.MAIN" />
-			</intent-filter>
-		</activity>
-
-		<activity
-			android:name=".activity.RemoteControlDialogInstaller"
-			android:label="Announcify RemoteControl"
-			android:theme="@android:style/Theme.Translucent.NoTitleBar">
-			<intent-filter>
-				<action
-					android:name="android.intent.action.CREATE_SHORTCUT" />
-				<category
-					android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-	</application>
-
 	<supports-screens
 		android:normalScreens="true"
 		android:smallScreens="true"
 		android:resizeable="true"
 		android:largeScreens="true"
+		android:xlargeScreens="true"
 		android:anyDensity="true" />
+
+	<uses-sdk
+		android:minSdkVersion="7"
+		android:targetSdkVersion="9" />
 </manifest>
