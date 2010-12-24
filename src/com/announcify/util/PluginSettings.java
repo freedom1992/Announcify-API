@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public abstract class PluginSettings {
-	protected static final String KEY_READING_BREAK = "preference_reading_break";
-	protected static final String KEY_READING_REPEAT = "preference_reading_repeat";
-	protected static final String KEY_READING_WAIT = "preference_reading_wait";
+	public static final String KEY_READING_BREAK = "preference_reading_break";
+	public static final String KEY_READING_REPEAT = "preference_reading_repeat";
+	public static final String KEY_READING_WAIT = "preference_reading_wait";
 
-	protected static final String KEY_READING_UNKNOWN = "preference_reading_unknown";
-	protected static final String KEY_READING_DISCREET = "preference_reading_discreet";
-	protected static final String KEY_READING_ANNOUNCEMENT = "preference_reading_announcement";
+	public static final String KEY_READING_UNKNOWN = "preference_reading_unknown";
+	public static final String KEY_READING_UNKNOWN_CUSTOM = "preference_reading_unknown_custom";
+	public static final String KEY_READING_DISCREET = "preference_reading_discreet";
+	public static final String KEY_READING_DISCREET_CUSTOM = "preference_reading_discreet_custom";
+	public static final String KEY_READING_ANNOUNCEMENT = "preference_reading_announcement";
+	public static final String KEY_READING_ANNOUNCEMENT_CUSTOM = "preference_reading_announcement_custom";
 
 	protected final String PREFERENCES_NAME;
 
@@ -41,25 +44,20 @@ public abstract class PluginSettings {
 		return i < 1000 ? i * 1000 : i;
 	}
 
-	public int getUnknownMode() {
-		return Integer.parseInt(preferences.getString(KEY_READING_UNKNOWN, "0"));
+	public String getUnknownMode() {
+		return preferences.getString(KEY_READING_UNKNOWN, "");
 	}
 
-	public int getAnnouncementMode() {
-		return Integer.parseInt(preferences.getString(KEY_READING_ANNOUNCEMENT, "0"));
+	public String getAnnouncementMode() {
+		return preferences.getString(KEY_READING_ANNOUNCEMENT, "$2");
 	}
 
-	public int getDiscreetMode() {
-		return Integer.parseInt(preferences.getString(KEY_READING_DISCREET, "0"));
+	public String getDiscreetMode() {
+		return preferences.getString(KEY_READING_DISCREET, "$2");
 	}
 
 	public String getSharedPreferencesName() {
 		return PREFERENCES_NAME;
-	}
-
-	public String getCustomAnnouncement() {
-		// TODO implement custom announcement
-		return "";
 	}
 
 	public abstract String getEventType();

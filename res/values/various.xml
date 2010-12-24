@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array
+		name="preference_list_reading_break_ids">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_repeat_ids">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_wait_ids">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_announcement_ids">
+		<item>$1</item>
+		<item>$1 from $2</item>
+		<item>Call from $1</item>
+		<item>You have a new call!</item>
+		<item>You have a new Announcification!</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_unknown_ids">
+		<item></item>
+		<item>com.announcify.UNKNOWN</item>
+		<item>$0</item>
+		<item>You have a new call!</item>
+		<item>You have a new Announcification!</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_discreet_ids">
+		<item>$1</item>
+		<item>$1 from $2</item>
+		<item>Call from $1</item>
+		<item>Call from $1: $3</item>
+		<item>You have a new call!</item>
+		<item>You have a new Announcification!</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+</resources>

@@ -1,13 +1,107 @@
 package com.announcify.activity;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.text.InputType;
+import android.widget.EditText;
+
+import com.announcify.queue.PrepareMachine;
+import com.announcify.util.PluginSettings;
 
 public class AnnouncifyActivity extends PreferenceActivity {
 	public static String ACTION_SETTINGS;
+
+	protected void setCustomListeners(final PluginSettings settings) {
+		setCustomNumberListener(PluginSettings.KEY_READING_WAIT, settings, "7");
+		setCustomNumberListener(PluginSettings.KEY_READING_BREAK, settings, "4");
+		setCustomNumberListener(PluginSettings.KEY_READING_REPEAT, settings, "7");
+
+		setCustomAnnouncementListener(PluginSettings.KEY_READING_ANNOUNCEMENT, settings, PrepareMachine.MODE_CUSTOM);
+		setCustomAnnouncementListener(PluginSettings.KEY_READING_DISCREET, settings, PrepareMachine.MODE_CUSTOM);
+		setCustomAnnouncementListener(PluginSettings.KEY_READING_UNKNOWN, settings, PrepareMachine.MODE_CUSTOM);
+	}
+
+	private void setCustomNumberListener(final String key, final PluginSettings settings, final String value) {
+		getPreferenceScreen().findPreference(key).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			public boolean onPreferenceChange(final Preference preference, final Object newValue) {
+				if (((String) newValue).equals(value)) {
+					return true;
+				}
+
+				final EditText edit = new EditText(AnnouncifyActivity.this);
+				edit.setInputType(InputType.TYPE_CLASS_NUMBER);
+				edit.setHint("Something between 0 and infinity...");
+				final Builder builder = new AlertDialog.Builder(AnnouncifyActivity.this);
+				builder.setTitle("Choose a custom value");
+				builder.setView(edit);
+				builder.setPositiveButton("Save", new OnClickListener() {
+
+					public void onClick(final DialogInterface dialog, final int which) {
+						final Editor editor = AnnouncifyActivity.this.getSharedPreferences(settings.getSharedPreferencesName(), Context.MODE_WORLD_READABLE).edit();
+						editor.putString(key, edit.getText().toString());
+						editor.commit();
+					}
+				});
+				builder.setCancelable(false);
+				builder.setNegativeButton("Cancel", new OnClickListener() {
+
+					public void onClick(final DialogInterface dialog, final int which) {}
+				});
+				builder.create().show();
+
+				return true;
+			}
+		});
+	}
+
+	private void setCustomAnnouncementListener(final String key, final PluginSettings settings, final String value) {
+		getPreferenceScreen().findPreference(key).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			public boolean onPreferenceChange(final Preference preference, final Object newValue) {
+				if (((String) newValue).equals(value)) {
+					return true;
+				}
+
+				final EditText edit = new EditText(AnnouncifyActivity.this);
+				edit.setInputType(InputType.TYPE_CLASS_TEXT);
+				edit.setHint("& for name, and % for adress type");
+				final Builder builder = new AlertDialog.Builder(AnnouncifyActivity.this);
+				builder.setTitle("Choose a custom text");
+				builder.setView(edit);
+				builder.setPositiveButton("Save", new OnClickListener() {
+
+					public void onClick(final DialogInterface dialog, final int which) {
+						final Editor editor = AnnouncifyActivity.this.getSharedPreferences(settings.getSharedPreferencesName(), Context.MODE_WORLD_READABLE).edit();
+						editor.putString(key, edit.getText().toString());
+						editor.commit();
+					}
+				});
+				builder.setCancelable(false);
+				builder.setNegativeButton("Cancel", new OnClickListener() {
+
+					public void onClick(final DialogInterface dialog, final int which) {
+						final Editor editor = AnnouncifyActivity.this.getSharedPreferences(settings.getSharedPreferencesName(), Context.MODE_WORLD_READABLE).edit();
+						editor.putString(key, "$2");
+						editor.commit();
+					}
+				});
+				builder.create().show();
+
+				return true;
+			}
+		});
+	}
 
 	protected void parseRingtone(final int requestCode, final int resultCode, final Intent data, final int type) {
 		if (requestCode == 100 && resultCode == RESULT_OK) {

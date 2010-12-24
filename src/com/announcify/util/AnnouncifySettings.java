@@ -19,6 +19,8 @@ public class AnnouncifySettings {
 	public static final String KEY_SCREEN = "preference_condition_screen";
 	public static final String KEY_GRAVITY = "preference_condition_gravity";
 
+	public static final String KEY_NOTIFICATION = "preference_behavior_notification";
+
 	public AnnouncifySettings(Context context) {
 		try {
 			if (!"com.announcify".equals(context.getPackageName())) {
@@ -53,5 +55,9 @@ public class AnnouncifySettings {
 
 	public boolean isGravityCondition() {
 		return preferences.getBoolean(KEY_GRAVITY, true);
+	}
+
+	public boolean isShowNotification() {
+		return preferences.getBoolean(KEY_NOTIFICATION, true);
 	}
 }

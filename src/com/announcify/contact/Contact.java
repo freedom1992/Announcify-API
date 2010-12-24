@@ -147,8 +147,11 @@ public class Contact {
 	}
 
 	public String getAddress() {
-		// TODO: add address type
-		return address;
+		final StringBuilder builder = new StringBuilder();
+		for (final char c : address.toCharArray()) {
+			builder.append(c + ".");
+		}
+		return builder.toString();
 	}
 
 	public void setAddress(final String address) {

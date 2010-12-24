@@ -1,5 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Announcify!</string>
-    <string name="app_name">Announcify</string>
+	<string
+		name="app_name">Announcify Plugin</string>
+
+	<string-array
+		name="preference_list_reading_break_names">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_repeat_names">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_wait_names">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>4</item>
+		<item>6</item>
+		<item>8</item>
+		<item>10</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_announcement_names">
+		<item>\"Tom\"</item>
+		<item>\"Tom from Home\"</item>
+		<item>\"Call from Tom\"</item>
+		<item>\"You have a new call\"</item>
+		<item>\"You have a new Announcification!\"</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_unknown_names">
+		<item>Nothing.</item>
+		<item>\"Unknown\"</item>
+		<item>Address</item>
+		<item>\"You have a new call\"</item>
+		<item>\"You have a new Announcification!\"</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_discreet_names">
+		<item>\"Tom\"</item>
+		<item>\"Tom from Home\"</item>
+		<item>\"Call from Tom\"</item>
+		<item>\"Call from Tom: ...\"</item>
+		<item>\"You have a new call\"</item>
+		<item>\"You have a new Announcification!\"</item>
+		<item>Custom...</item>
+	</string-array>
 </resources>

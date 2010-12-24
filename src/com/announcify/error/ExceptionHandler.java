@@ -3,8 +3,6 @@ package com.announcify.error;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 
 public class ExceptionHandler implements UncaughtExceptionHandler {
 	public static final String PACKAGE = "PACKAGE";
@@ -24,36 +22,8 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 	}
 
 	public void uncaughtException(final Thread thread, final Throwable exception) {
-		final Intent exceptionIntent = new Intent("com.announcify.EXCEPTION");
-		exceptionIntent.putExtra(STACKTRACE, exception);
-		exceptionIntent.putExtra(PACKAGE, getPackageName());
-		exceptionIntent.putExtra(VERSION_CODE, getVersionCode());
-		exceptionIntent.putExtra(VERSION_NAME, getVersionName());
-
-		context.sendBroadcast(exceptionIntent);
+		new ExceptionParser(context, exception).sendException();
 
 		defaultHandler.uncaughtException(thread, exception);
-	}
-
-	public String getPackageName() {
-		return context.getPackageName();
-	}
-
-	public String getVersionCode() {
-		try {
-			return Integer.toString(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode);
-		} catch (final NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		return "UNKNOWN";
-	}
-
-	public String getVersionName() {
-		try {
-			return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-		} catch (final NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		return "UNKNOWN";
 	}
 }
