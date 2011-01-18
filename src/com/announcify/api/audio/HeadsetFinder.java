@@ -1,5 +1,5 @@
 
-package com.announcify.api.util;
+package com.announcify.api.audio;
 
 import android.content.Context;
 import android.content.Intent;

@@ -3,8 +3,10 @@ package com.announcify.api.sql.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 public class TranslationModel extends BaseModel {
+
     public final static String TABLE_NAME = "Translation";
 
     public static final String KEY_PLUGIN_FROM = "from_string";
@@ -26,6 +28,7 @@ public class TranslationModel extends BaseModel {
         values.put(KEY_PLUGIN_TO, to);
         values.put(KEY_PLUGIN_SOURCE, source);
         values.put(KEY_PLUGIN_DESTINATION, destination);
+
         database.insert(TABLE_NAME, null, values);
     }
 }

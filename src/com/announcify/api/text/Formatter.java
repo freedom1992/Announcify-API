@@ -1,18 +1,20 @@
 
-package com.announcify.api.contact;
+package com.announcify.api.text;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.announcify.api.audio.HeadsetFinder;
+import com.announcify.api.contact.Contact;
+import com.announcify.api.contact.ContactEnum;
 import com.announcify.api.util.AnnouncifySettings;
-import com.announcify.api.util.HeadsetFinder;
 import com.announcify.api.util.PluginSettings;
 
 public class Formatter {
 
-    // TODO: move to FormatEnum-Interface!
     public static final String EVENT = "<EVENT>";
 
     public static final String NAME = "<NAME>"; // as set per full-settings!
@@ -35,13 +37,17 @@ public class Formatter {
 
     public static final String MESSAGE = "<MESSAGE>";
 
+    
     private Map<String, ContactEnum> substitutes;
+
+    private PluginSettings settings;
 
     private Context context;
 
     private Contact contact;
 
     private String text;
+    
 
     public Formatter(final Context context, final Contact contact, final PluginSettings settings) {
         this(new HashMap<String, ContactEnum>(), context, contact, settings);
@@ -51,9 +57,11 @@ public class Formatter {
         }
     }
 
+    
     public Formatter(final Map<String, ContactEnum> substitutes, final Context context,
             final Contact contact, final PluginSettings settings) {
         this.substitutes = substitutes;
+        this.settings = settings;
         this.context = context;
         this.contact = contact;
 
@@ -82,17 +90,23 @@ public class Formatter {
     }
 
     public String format(final String message) {
-        // TODO: ugh!
+        Log.e("smn", text);
         text = text.replaceAll(NAME, getUserPreferredReadingMode());
+        Log.e("smn", text);
 
         if (message != null) {
             text = text.replaceAll(MESSAGE, message);
         }
+        Log.e("smn", text);
+
+        text = text.replaceAll(EVENT, settings.getEventType());
+        Log.e("smn", text);
 
         for (final String s : substitutes.keySet()) {
             // TODO: i don't want to pass context and contact here everytime! ->
-            // ContactEnum in Contact?
+            // make ContactEnum inner class of Contact?
             text = text.replaceAll(s, substitutes.get(s).getSubstitution(context, contact));
+            Log.e("smn", text);
         }
 
         return text;
@@ -100,19 +114,19 @@ public class Formatter {
 
     public String getUserPreferredReadingMode() {
         switch (new AnnouncifySettings(context).getReadingMode()) {
-            case 0: // user requested to read full name
+            case 0:
                 return FULLNAME;
 
-            case 1: // user requested to read only first name
+            case 1:
                 return FIRSTNAME;
 
-            case 2: // user requested to read only family name
+            case 2:
                 return LASTNAME;
 
-            case 3: // user requested to read nickname (if available)
+            case 3:
                 return NICKNAME;
 
-            case 4: // user requested to read the number
+            case 4:
                 return ADDRESS;
 
             default:

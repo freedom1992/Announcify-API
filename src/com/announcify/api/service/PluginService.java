@@ -4,13 +4,6 @@ package com.announcify.api.service;
 import android.app.IntentService;
 import android.content.Intent;
 
-/**
- * @author tom you can find a really good example of an IntentService here:
- *         http://github
- *         .com/commonsguy/cwac-wakeful/blob/master/src/com/commonsware
- *         /cwac/wakeful/WakefulIntentService.java so, we have to acquire a wake
- *         lock!
- */
 public abstract class PluginService extends IntentService {
     public static final String ACTION_ANNOUNCE = "com.announcify.ANNOUNCE";
 

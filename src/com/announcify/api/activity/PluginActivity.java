@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
@@ -20,6 +21,13 @@ import com.announcify.api.util.PluginSettings;
 
 public class PluginActivity extends PreferenceActivity {
     public static String ACTION_SETTINGS;
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        setTheme(android.R.style.Theme_Light_NoTitleBar);
+
+        super.onCreate(savedInstanceState);
+    }
 
     protected void setCustomListeners(final PluginSettings settings) {
         setCustomNumberListener(PluginSettings.KEY_READING_WAIT, settings, "7");

@@ -4,14 +4,10 @@ package com.announcify.api.queue;
 import java.util.LinkedList;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.announcify.api.service.PluginService;
 import com.announcify.api.tts.Speech;
-import com.announcify.api.util.PluginSettings;
 
 public class PluginQueue implements Parcelable {
     // this MUST be a public static final variable!!
@@ -25,21 +21,6 @@ public class PluginQueue implements Parcelable {
             return new PluginQueue[size];
         }
     };
-
-    public static LinkedList<Object> buildList(final PluginSettings settings, final String text) {
-        final LinkedList<Object> list = new LinkedList<Object>();
-
-        if ("".equals(text) || text == null) {
-            return list;
-        }
-
-        for (int i = 0; i < settings.getReadingRepeat(); i++) {
-            list.add(text);
-            list.add(new Integer(settings.getReadingBreak()));
-        }
-
-        return list;
-    }
 
     private final LinkedList<Object> queue;
 
@@ -146,14 +127,5 @@ public class PluginQueue implements Parcelable {
 
     public void setSpeech(final Speech speech) {
         this.speech = speech;
-    }
-
-    public void sendToService(final Context context, final int priority) {
-        final Intent announceIntent = new Intent(PluginService.ACTION_ANNOUNCE);
-        final Bundle bundle = new Bundle();
-        bundle.putInt(PluginService.EXTRA_PRIORITY, priority);
-        bundle.putParcelable(PluginService.EXTRA_QUEUE, this);
-        announceIntent.putExtras(bundle);
-        context.startService(announceIntent);
     }
 }

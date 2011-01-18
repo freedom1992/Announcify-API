@@ -4,8 +4,10 @@ package com.announcify.api.contact;
 import android.content.Context;
 
 import com.announcify.api.contact.lookup.Name;
+import com.announcify.api.text.FormatEnum;
+import com.announcify.api.text.Formatter;
 
-public enum ContactEnum {
+public enum ContactEnum implements FormatEnum {
     UNKNOWN() {
         @Override
         public String getExpression() {
@@ -13,8 +15,8 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            return contact.getUnknownString();
+        public String getSubstitution(final Context context, final Object object) {
+            return ((Contact)object).getUnknownString();
         }
     },
 
@@ -25,12 +27,12 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if ("".equals(contact.getFirstname())) {
-                Name.getFirstname(context, contact);
+        public String getSubstitution(final Context context, final Object object) {
+            if ("".equals(((Contact)object).getFirstname())) {
+                Name.getFirstname(context, ((Contact)object));
             }
 
-            return contact.getFirstname();
+            return ((Contact)object).getFirstname();
         }
     },
 
@@ -41,12 +43,12 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if ("".equals(contact.getLastname())) {
-                Name.getLastname(context, contact);
+        public String getSubstitution(final Context context, final Object object) {
+            if ("".equals(((Contact)object).getLastname())) {
+                Name.getLastname(context, ((Contact)object));
             }
 
-            return contact.getLastname();
+            return ((Contact)object).getLastname();
         }
     },
 
@@ -57,12 +59,16 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if ("".equals(contact.getNickname())) {
-                Name.getNickname(context, contact);
+        public String getSubstitution(final Context context, final Object object) {
+            if ("".equals(((Contact)object).getNickname())) {
+                Name.getNickname(context, ((Contact)object));
             }
 
-            return contact.getNickname();
+            if ("".equals(((Contact)object).getNickname())) {
+                return FIRSTNAME.getSubstitution(context, object);
+            } else {
+                return ((Contact)object).getNickname();
+            }
         }
     },
 
@@ -73,12 +79,12 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if ("".equals(contact.getTitle())) {
-                Name.getPrefix(context, contact);
+        public String getSubstitution(final Context context, final Object object) {
+            if ("".equals(((Contact)object).getTitle())) {
+                Name.getPrefix(context, ((Contact)object));
             }
 
-            return contact.getTitle();
+            return ((Contact)object).getTitle();
         }
     },
 
@@ -89,12 +95,12 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if ("".equals(contact.getFullname())) {
-                Name.getFullname(context, contact);
+        public String getSubstitution(final Context context, final Object object) {
+            if ("".equals(((Contact)object).getFullname())) {
+                Name.getFullname(context, ((Contact)object));
             }
 
-            return contact.getFullname();
+            return ((Contact)object).getFullname();
         }
     },
 
@@ -105,16 +111,16 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if (contact.getAddress().matches("[+][0-9]+")) {
+        public String getSubstitution(final Context context, final Object object) {
+            if (((Contact)object).getAddress().matches("[+][0-9]+")) {
                 final StringBuilder builder = new StringBuilder();
-                for (final char c : contact.getAddress().toCharArray()) {
+                for (final char c : ((Contact)object).getAddress().toCharArray()) {
                     builder.append(c + ".");
                 }
                 return builder.toString();
             }
 
-            return contact.getAddress();
+            return ((Contact)object).getAddress();
         }
     },
 
@@ -125,16 +131,16 @@ public enum ContactEnum {
         }
 
         @Override
-        public String getSubstitution(final Context context, final Contact contact) {
-            if ("".equals(contact.getAddressType())) {
-                contact.getLookupMethod().getType();
+        public String getSubstitution(final Context context, final Object object) {
+            if ("".equals(((Contact)object).getAddressType())) {
+                ((Contact)object).getLookupMethod().getType();
             }
 
-            return contact.getAddressType();
+            return ((Contact)object).getAddressType();
         }
     };
 
     public abstract String getExpression();
 
-    public abstract String getSubstitution(Context context, Contact contact);
+    public abstract String getSubstitution(Context context, Object object);
 }

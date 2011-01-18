@@ -33,6 +33,20 @@ public class Contact {
 
     private int groupId = -1;
 
+    public Contact() {
+        lookupMethod = new LookupMethod() {
+
+            public void getLookup(final Contact contact) {
+            }
+
+            public void getType() {
+            }
+
+            public void getAddress() {
+            }
+        };
+    }
+
     public Contact(final Context context, final LookupMethod lookup, final String address) {
         this.address = address;
         lookupMethod = lookup;

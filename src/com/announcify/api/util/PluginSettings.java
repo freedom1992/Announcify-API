@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public abstract class PluginSettings {
+
+    public static final String KEY_RINGTONE = "preference_ringtone";
+
     public static final String KEY_READING_BREAK = "preference_reading_break";
 
     public static final String KEY_READING_REPEAT = "preference_reading_repeat";
@@ -73,4 +76,6 @@ public abstract class PluginSettings {
     }
 
     public abstract String getEventType();
+
+    public abstract int getPriority();
 }

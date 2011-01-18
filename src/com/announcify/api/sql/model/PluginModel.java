@@ -4,8 +4,10 @@ package com.announcify.api.sql.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 public class PluginModel extends BaseModel {
+
     public final static String TABLE_NAME = "Plugin";
 
     public static final String KEY_PLUGIN_NAME = "name";
@@ -22,7 +24,9 @@ public class PluginModel extends BaseModel {
 
     public static final String KEY_PLUGIN_TIMER = "flush_timer";
 
+
     private final Context context;
+
 
     public PluginModel(final Context context) {
         super(context, TABLE_NAME);
@@ -30,9 +34,14 @@ public class PluginModel extends BaseModel {
         this.context = context;
     }
 
-    public void togglePlugin(final int id) {
-        final Cursor cursor = get(id);
 
+    @Override
+    public Cursor getAll() {
+        return database.query(TABLE_NAME, null, null, null, null, null, KEY_PLUGIN_NAME);
+    }
+
+    public void togglePlugin(final long id) {
+        final Cursor cursor = get(id);
         try {
             if (!cursor.moveToFirst()) {
                 return;
@@ -42,30 +51,38 @@ public class PluginModel extends BaseModel {
             values.put(KEY_PLUGIN_ACTIVE,
                     cursor.getInt(cursor.getColumnIndex(KEY_PLUGIN_ACTIVE)) == 1 ? 0 : 1);
 
-            database.update(TABLE_NAME, values, _ID + " = " + id, null);
+            database.update(TABLE_NAME, values, _ID + " = ?", new String[] {
+                    String.valueOf(id)
+            });
         } finally {
             cursor.close();
         }
     }
 
-    public int getId(final String name) {
-        final Cursor cursor = database.query(TABLE_NAME, null, KEY_PLUGIN_NAME + " = " + "'" + name
-                + "'", null, null, null, null);
+    public long getId(final String name) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                _ID
+        }, KEY_PLUGIN_NAME + " = ?", new String[] {
+                String.valueOf(name)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
                 return -1;
             }
 
-            return cursor.getInt(cursor.getColumnIndex(_ID));
+            return cursor.getLong(cursor.getColumnIndex(_ID));
         } finally {
             cursor.close();
         }
     }
 
-    public boolean getActive(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public boolean getActive(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_ACTIVE
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -81,9 +98,12 @@ public class PluginModel extends BaseModel {
     /**
      * @returns True if dataset changed / GUI needs to be update its content.
      */
-    public boolean increaseTimer(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public boolean increaseTimer(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_TIMER
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -92,12 +112,15 @@ public class PluginModel extends BaseModel {
 
             final int i = cursor.getInt(cursor.getColumnIndex(KEY_PLUGIN_TIMER));
             if (i >= 2) {
-                getDatabase().delete(TABLE_NAME, _ID + " = " + id, null);
+                database.delete(TABLE_NAME, _ID + " = " + id, null);
+
                 return true;
             } else {
                 final ContentValues values = new ContentValues();
                 values.put(KEY_PLUGIN_TIMER, i + 1);
-                getDatabase().update(TABLE_NAME, values, _ID + " = " + id, null);
+
+                database.update(TABLE_NAME, values, _ID + " = " + id, null);
+
                 return false;
             }
         } finally {
@@ -105,9 +128,12 @@ public class PluginModel extends BaseModel {
         }
     }
 
-    public void clearTimer(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public void clearTimer(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_TIMER
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -116,15 +142,19 @@ public class PluginModel extends BaseModel {
 
             final ContentValues values = new ContentValues();
             values.put(KEY_PLUGIN_TIMER, 0);
-            getDatabase().update(TABLE_NAME, values, _ID + " = " + id, null);
+
+            database.update(TABLE_NAME, values, _ID + " = " + id, null);
         } finally {
             cursor.close();
         }
     }
 
-    public int getPriority(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public int getPriority(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_PRIORITY
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -137,9 +167,12 @@ public class PluginModel extends BaseModel {
         }
     }
 
-    public String getName(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public String getName(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_NAME
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -152,9 +185,12 @@ public class PluginModel extends BaseModel {
         }
     }
 
-    public String getPackage(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public String getPackage(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_PACKAGE
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -167,9 +203,12 @@ public class PluginModel extends BaseModel {
         }
     }
 
-    public String getAction(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public String getAction(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_ACTION
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -182,9 +221,12 @@ public class PluginModel extends BaseModel {
         }
     }
 
-    public boolean getBroadcast(final int id) {
-        final Cursor cursor = database.query(TABLE_NAME, null, _ID + " = " + id, null, null, null,
-                null);
+    public boolean getBroadcast(final long id) {
+        final Cursor cursor = database.query(TABLE_NAME, new String[] {
+                KEY_PLUGIN_BROADCAST
+        }, _ID + " = ?", new String[] {
+                String.valueOf(id)
+        }, null, null, null);
 
         try {
             if (!cursor.moveToFirst()) {
@@ -207,6 +249,7 @@ public class PluginModel extends BaseModel {
         values.put(KEY_PLUGIN_ACTION, action);
         values.put(KEY_PLUGIN_BROADCAST, broadcast ? 1 : 0);
         values.put(KEY_PLUGIN_TIMER, 0);
+
         database.insert(TABLE_NAME, null, values);
     }
 }
