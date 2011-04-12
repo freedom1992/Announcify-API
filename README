@@ -2,6 +2,6 @@ Announcify - API
 
 Welcome to an early glimpse at the API for Announcify! More information soon to be seen at http://announcify.com/
 
-Basically, all you have to do is to get the text you want Announcify to announce (current time, battery status, social event, whatever), create an <em>AnnouncifyIntent</em> and put the text into it. AnnouncifyIntent (or SimpleAnnouncifyIntent) will do the rest for you and send the text over to Announcify.
+Basically, all you have to do is to get the text you want Announcify to announce (current time, battery status, social event, whatever), create an AnnouncifyIntent and put the text into it. AnnouncifyIntent (or SimpleAnnouncifyIntent) will do the rest for you and send the text over to Announcify.
 
-Take a look at https://github.com/TomTasche/Announcify-Call if you want to see an example.
+Take a look at https://github.com/TomTasche/Announcify-API/tree/master/Sample-Announcify if you want to see an example.
