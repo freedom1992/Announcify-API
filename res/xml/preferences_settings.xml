@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<RingtonePreference
+		android:key="preference_ringtone"
+		android:title="@string/preference_ringtone_title"
+		android:summary="@string/preference_ringtone_summary"
+		android:ringtoneType="notification"
+		android:showSilent="true"
+		android:showDefault="true" />
+
+	<ListPreference
+		android:dialogTitle="@string/preference_break_title"
+		android:entryValues="@array/preference_list_reading_break_ids"
+		android:entries="@array/preference_list_reading_break_names"
+		android:title="@string/preference_break_title"
+		android:summary="@string/preference_break_summary"
+		android:key="preference_reading_break"
+		android:defaultValue="2" />
+
+	<ListPreference
+		android:dialogTitle="@string/preference_repeat_title"
+		android:entryValues="@array/preference_list_reading_repeat_ids"
+		android:entries="@array/preference_list_reading_repeat_names"
+		android:title="@string/preference_repeat_title"
+		android:summary="@string/preference_repeat_summary"
+		android:key="preference_reading_repeat"
+		android:defaultValue="1" />
+
+	<ListPreference
+		android:dialogTitle="@string/preference_wait_title"
+		android:entryValues="@array/preference_list_reading_wait_ids"
+		android:entries="@array/preference_list_reading_wait_names"
+		android:title="@string/preference_wait_title"
+		android:summary="@string/preference_wait_summary"
+		android:key="preference_reading_wait"
+		android:defaultValue="0" />
+
+	<ListPreference
+		android:dialogTitle="@string/preference_known_title"
+		android:entryValues="@array/preference_list_reading_announcement_ids"
+		android:entries="@array/preference_list_reading_announcement_names"
+		android:title="@string/preference_known_title"
+		android:summary="@string/preference_known_summary"
+		android:key="preference_reading_announcement"
+		android:defaultValue="&lt;NAME&gt;" />
+
+	<ListPreference
+		android:dialogTitle="@string/preference_unknown_title"
+		android:entryValues="@array/preference_list_reading_unknown_ids"
+		android:entries="@array/preference_list_reading_unknown_names"
+		android:title="@string/preference_unknown_title"
+		android:summary="@string/preference_unknown_summary"
+		android:key="preference_reading_unknown"
+		android:defaultValue="&lt;UNKNOWN&gt;" />
+
+	<ListPreference
+		android:dialogTitle="@string/preference_discreet_title"
+		android:entryValues="@array/preference_list_reading_announcement_ids"
+		android:entries="@array/preference_list_reading_announcement_names"
+		android:title="@string/preference_discreet_title"
+		android:summary="@string/preference_discreet_summary"
+		android:key="preference_reading_discreet"
+		android:defaultValue="&lt;NAME&gt;" />
+
+	<CheckBoxPreference
+		android:summary="@string/preference_chuck_norris_summary"
+		android:key="preference_chuck_norris"
+		android:title="@string/preference_chuck_norris_title"
+		android:defaultValue="false" />
+</PreferenceScreen>

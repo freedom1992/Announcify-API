@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="string_share_announcify">I\'m in love with my phone\'s voice! \n@Announcify - http://market.announcify.com</string>
+
+	<string
+		name="preference_formatstring_input_hint">Click button below...</string>
+	<string
+		name="preference_formatstring_add_variable">Add variable...</string>
+
+	<string
+		name="preference_custom_value_input_hint">Something between 0 and infinity...</string>
+
+	<string
+		name="preference_custom_text_title">Choose custom text</string>
+	<string
+		name="preference_custom_value_title">Choose custom value</string>
+	<string
+		name="preference_custom_save">Save</string>
+	<string
+		name="preference_custom_cancel">Cancel</string>
+
+	<string
+		name="preference_ringtone_title">Choose Ringtone</string>
+	<string
+		name="preference_ringtone_summary">Ringtone to be played after Announcification</string>
+	<string
+		name="preference_ringtone_system">Choose new ringtone to be played by Android system</string>
+
+	<string
+		name="preference_break_title">Break between Announcifications</string>
+	<string
+		name="preference_break_summary">How long to pause before repeating Announcification again</string>
+
+	<string
+		name="preference_repeat_title">Repeat Announcification</string>
+	<string
+		name="preference_repeat_summary">How often to repeat Announcification</string>
+
+	<string
+		name="preference_wait_title">Delay Announcification</string>
+	<string
+		name="preference_wait_summary">How long to wait before starting Announcification</string>
+
+	<string
+		name="preference_unknown_title">Choose &quot;unknown&quot; Announcification</string>
+	<string
+		name="preference_unknown_summary">What to announce if contact is unknown</string>
+
+	<string
+		name="preference_known_title">Choose &quot;known&quot; Announcification</string>
+	<string
+		name="preference_known_summary">What to announce if contact was found in your addressbook</string>
+
+	<string
+		name="preference_discreet_title">Choose &quot;discreet&quot; Announcement</string>
+	<string
+		name="preference_discreet_summary">What to announce if discreet (headphones plugged in)</string>
+
+	<string-array
+		name="preference_list_reading_break_names">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_repeat_names">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_wait_names">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>4</item>
+		<item>6</item>
+		<item>8</item>
+		<item>10</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_announcement_names">
+		<item>\"Tom\"</item>
+		<item>\"Tom from Home\"</item>
+		<item>\"Announcification from Tom\"</item>
+		<item>\"You have a new Announcification\"</item>
+		<item>\"You have a new Announcification!\"</item>
+		<item>\"New Announcification from Tom, Hello!\"</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_unknown_names">
+		<item>Nothing.</item>
+		<item>\"Unknown\"</item>
+		<item>Address</item>
+		<item>\"You have a new Announcification\"</item>
+		<item>\"You have a new Announcification!\"</item>
+		<item>\"New Announcification from Unknown, Hello!\"</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_discreet_names">
+		<item>\"Tom\"</item>
+		<item>\"Tom from Home\"</item>
+		<item>\"Announcification from Tom\"</item>
+		<item>\"Announcification from Tom: ...\"</item>
+		<item>\"You have a new Announcification\"</item>
+		<item>\"You have a new Announcification!\"</item>
+		<item>\"New Announcification from Tom: Please rate me!\"</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_announcement_ids">
+		<item>&lt;NAME&gt;</item>
+		<item>&lt;NAME&gt; from &lt;ADDRESSTYPE&gt;</item>
+		<item>&lt;EVENT&gt; from &lt;NAME&gt;</item>
+		<item>You have a new &lt;EVENT&gt;!</item>
+		<item>You have a new Announcification!</item>
+		<item>New &lt;EVENT&gt; from &lt;NAME&gt;, &lt;MESSAGE&gt;</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_unknown_ids">
+		<item></item>
+		<item>&lt;UNKNOWN&gt;</item>
+		<item>&lt;ADDRESS&gt;</item>
+		<item>You have a new &lt;EVENT&gt;!</item>
+		<item>You have a new Announcification!</item>
+		<item>New &lt;EVENT&gt; from &lt;UNKNOWN&gt;, &lt;MESSAGE&gt;</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_discreet_ids">
+		<item>&lt;NAME&gt;</item>
+		<item>&lt;NAME&gt; from &lt;ADDRESSTYPE&gt;</item>
+		<item>&lt;EVENT&gt; from &lt;NAME&gt;</item>
+		<item>&lt;EVENT&gt; from &lt;NAME&gt;, &lt;MESSAGE&gt;</item>
+		<item>You have a new &lt;EVENT&gt;!</item>
+		<item>You have a new Announcification!</item>
+		<item>New &lt;EVENT&gt; from &lt;NAME&gt;, &lt;MESSAGE&gt;</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_read_message">
+		<item>Subject</item>
+		<item>Snippet</item>
+		<item>Complete Message</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_shut_up">
+		<item>0</item>
+		<item>5</item>
+		<item>10</item>
+		<item>20</item>
+		<item>Same as default in Announcify++</item>
+		<item>Custom...</item>
+	</string-array>
+
+	<string
+		name="preference_shut_up_title">Shut up!</string>
+	<string
+		name="preference_shut_up_summary">Block the plugin from constant annoying Announcifications for a few seconds</string>
+
+	<string
+		name="preference_read_own_title">Read your own Mails</string>
+	<string
+		name="preference_read_own_summary">Could cause annoying Announcifications!</string>
+
+	<string
+		name="preference_read_message_title">How to announce a message</string>
+	<string
+		name="preference_read_message_summary">Which part of the message to announce?</string>
+
+	<string
+		name="preference_read_mail_header_title">Read name from mail header</string>
+	<string
+		name="preference_read_mail_header_summary">If contact isn\'t saved in addressbook</string>
+
+	<string
+		name="preference_chuck_norris_title">Chuck Norris Mode (BEWARE!)</string>
+	<string
+		name="preference_chuck_norris_summary">Announce like Chuck would do: Ignore blocklists and the like</string>
+
+	<string
+		name="preference_annoying_mode_title">Annoying Mode</string>
+	<string
+		name="preference_annoying_mode_summary">Could cause the plugin reading unnecessary messages</string>
+</resources>

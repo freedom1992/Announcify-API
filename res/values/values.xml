@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array
+		name="preference_list_reading_break_ids">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_repeat_ids">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+
+	<string-array
+		name="preference_list_reading_wait_ids">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+	
+	<string-array
+		name="dialog_list_formatstring_variables">
+		<item>&lt;NAME&gt;</item>
+		<item>&lt;FULLNAME&gt;</item>
+		<item>&lt;FIRSTNAME&gt;</item>
+		<item>&lt;LASTNAME&gt;</item>
+		<item>&lt;NICKNAME&gt;</item>
+		<item>&lt;TITLE&gt;</item>
+		<item>&lt;ADDRESS&gt;</item>
+		<item>&lt;ADDRESSTYPE&gt;</item>
+		<item>&lt;MESSAGE&gt;</item>
+		<item>&lt;EVENT&gt;</item>
+		<item>&lt;UNKNOWN&gt;</item>
+	</string-array>
+	
+	<string-array
+		name="preference_list_read_message_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+	
+	<string-array
+		name="preference_list_shut_up_values">
+		<item>0</item>
+		<item>5</item>
+		<item>10</item>
+		<item>20</item>
+		<item>com.announcify.DEFAULT</item>
+		<item>com.announcify.CUSTOM</item>
+	</string-array>
+</resources>

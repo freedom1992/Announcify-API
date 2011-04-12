@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.announcify.developers.sample"
+	android:versionCode="1"
+	android:versionName="0.1">
+
+	<!-- We need to declare the permission here if Announcify isn't installed yet. -->
+	<permission
+		android:name="com.announcify.PERMISSION_IM_A_PLUGIN"
+		android:protectionLevel="normal" />
+
+	<!-- Now we request that permission.-->
+	<uses-permission
+		android:name="com.announcify.PERMISSION_IM_A_PLUGIN" />
+	<uses-permission
+		android:name="android.permission.READ_CONTACTS" />
+	<uses-permission
+		android:name="android.permission.WRITE_SETTINGS" />
+
+	<application
+		android:icon="@drawable/icon"
+		android:label="@string/app_name">
+
+		<activity
+			android:name=".activity.SettingsActivity"
+			android:label="@string/app_name">
+
+			<intent-filter>
+				<action
+					android:name="com.announcify.developers.SETTINGS" />
+				<category
+					android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<receiver
+			android:name=".receiver.AnnouncifyReceiver"
+			android:label="@string/app_name">
+
+			<intent-filter>
+				<action
+					android:name="com.announcify.ACTION_PLUGIN_CONTACT" />
+			</intent-filter>
+		</receiver>
+
+		<receiver
+			android:name=".receiver.EventReceiver"
+			android:label="@string/app_name">
+
+			<intent-filter>
+				<!-- Whatever event you want to receive... -->
+				<action
+					android:name="android.provider.Telephony.SMS_RECEIVED" />
+			</intent-filter>
+		</receiver>
+
+		<receiver
+			android:name=".receiver.RingtoneReceiver"
+			android:label="@string/app_name">
+
+			<intent-filter>
+				<action
+					android:name="com.announcify.developers.ACTION_START_RINGTONE" />
+			</intent-filter>
+
+			<intent-filter>
+				<action
+					android:name="com.announcify.developers.ACTION_STOP_RINGTONE" />
+			</intent-filter>
+		</receiver>
+
+		<!-- Declare the service that actually does the hard work. -->
+		<service
+			android:name=".service.WorkerService" />
+	</application>
+
+	<supports-screens
+		android:normalScreens="true"
+		android:smallScreens="true"
+		android:resizeable="true"
+		android:largeScreens="true"
+		android:xlargeScreens="true"
+		android:anyDensity="true" />
+
+	<!-- Everything below 7 doesn't make any sense... Announcify doesn't work on <7 -->
+	<uses-sdk
+		android:minSdkVersion="7"
+		android:targetSdkVersion="9" />
+</manifest> 

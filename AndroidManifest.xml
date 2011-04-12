@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:versionCode="6"
+	android:versionName="0.6"
+	package="com.announcify.api">
+
+	<permission
+		android:name="com.announcify.PERMISSION_IM_A_PLUGIN"
+		android:protectionLevel="normal" />
+
+	<supports-screens
+		android:normalScreens="true"
+		android:smallScreens="true"
+		android:resizeable="true"
+		android:largeScreens="true"
+		android:xlargeScreens="true"
+		android:anyDensity="true" />
+
+	<uses-sdk
+		android:minSdkVersion="7"
+		android:targetSdkVersion="9" />
+</manifest>
