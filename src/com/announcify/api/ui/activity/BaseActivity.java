@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.announcify.api.R;
-import com.announcify.api.background.error.ExceptionHandler;
 import com.markupartist.android.widget.ActionBar;
 
 public class BaseActivity extends Activity {
 
     protected void onCreate(final Bundle savedInstanceState, final int layoutResId) {
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getBaseContext()));
-
         setTheme(android.R.style.Theme_Light_NoTitleBar);
 
         super.onCreate(savedInstanceState);

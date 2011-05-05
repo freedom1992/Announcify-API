@@ -18,11 +18,15 @@ public class Chat implements LookupMethod {
     }
 
     public void getAddress() {
+        if (contact.getAddress() == null || contact.getLookupString() == null) {
+            return;
+        }
+
         Cursor cursor = null;
 
         try {
             cursor = context.getContentResolver().query(Data.CONTENT_URI, new String[] { Im.DATA1 }, Im.LOOKUP_KEY + " = ? AND " + Im.MIMETYPE + " = ?", new String[] { contact.getLookupString(), Im.CONTENT_ITEM_TYPE }, null);
-            if (!cursor.moveToFirst()) {
+            if (cursor == null || !cursor.moveToFirst()) {
                 return;
             }
 
@@ -43,7 +47,7 @@ public class Chat implements LookupMethod {
             cursor = context.getContentResolver().query(Data.CONTENT_URI, new String[] { Im.LOOKUP_KEY },
             // Im.DATA1 + " = ? AND " + Im.MIMETYPE + " = ?",
             Im.DATA1 + " = ?", new String[] { contact.getAddress() }, null);
-            if (!cursor.moveToFirst()) {
+            if (cursor == null || !cursor.moveToFirst()) {
                 return;
             }
 
@@ -56,17 +60,27 @@ public class Chat implements LookupMethod {
     }
 
     public void getType() {
+        if (contact.getAddress() == null || contact.getLookupString() == null) {
+            return;
+        }
+
         Cursor cursor = null;
 
         try {
             cursor = context.getContentResolver().query(Data.CONTENT_URI, new String[] { Im.TYPE }, Im.LOOKUP_KEY + " = ? AND " + Data.MIMETYPE + " = ? AND " + Im.DATA1 + " = ?", new String[] { contact.getLookupString(), Im.CONTENT_ITEM_TYPE, contact.getAddress() }, null);
-            if (!cursor.moveToFirst()) {
+            if (cursor == null || !cursor.moveToFirst()) {
                 return;
             }
 
             String label = cursor.getString(cursor.getColumnIndex(Im.LABEL));
             if (label == null) {
-                label = Resources.getSystem().getStringArray(android.R.array.imProtocols)[cursor.getInt(cursor.getColumnIndex(Im.TYPE)) - 1];
+                final int type = cursor.getInt(cursor.getColumnIndex(Im.TYPE)) - 1;
+                final String[] types = Resources.getSystem().getStringArray(android.R.array.imProtocols);
+                if (types.length <= type) {
+                    return;
+                }
+
+                label = types[type];
             }
             contact.setType(label);
         } finally {

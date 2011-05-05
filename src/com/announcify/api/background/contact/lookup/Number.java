@@ -26,7 +26,7 @@ public class Number implements LookupMethod {
 
         try {
             cursor = context.getContentResolver().query(Data.CONTENT_URI, new String[] { CommonDataKinds.Phone.NUMBER }, Contacts.LOOKUP_KEY + " = ?", new String[] { contact.getLookupString() }, null);
-            if (!cursor.moveToFirst()) {
+            if (cursor == null || !cursor.moveToFirst()) {
                 return;
             }
 
@@ -45,7 +45,7 @@ public class Number implements LookupMethod {
 
         try {
             cursor = context.getContentResolver().query(Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(contact.getAddress())), new String[] { PhoneLookup.LOOKUP_KEY }, null, null, null);
-            if (!cursor.moveToFirst()) {
+            if (cursor == null || !cursor.moveToFirst()) {
                 return;
             }
 
@@ -58,17 +58,27 @@ public class Number implements LookupMethod {
     }
 
     public void getType() {
+        if (contact.getAddress() == null || contact.getLookupString() == null) {
+            return;
+        }
+
         Cursor cursor = null;
 
         try {
             cursor = context.getContentResolver().query(Data.CONTENT_URI, new String[] { CommonDataKinds.Phone.LABEL, CommonDataKinds.Phone.TYPE }, Contacts.LOOKUP_KEY + " = ? AND " + CommonDataKinds.Phone.NUMBER + " = ?", new String[] { contact.getLookupString(), contact.getAddress() }, null);
-            if (!cursor.moveToFirst()) {
+            if (cursor == null || !cursor.moveToFirst()) {
                 return;
             }
 
             String label = cursor.getString(cursor.getColumnIndex(CommonDataKinds.Phone.LABEL));
             if (label == null) {
-                label = Resources.getSystem().getStringArray(android.R.array.phoneTypes)[cursor.getInt(cursor.getColumnIndex(Phone.TYPE)) - 1];
+                final int type = cursor.getInt(cursor.getColumnIndex(Phone.TYPE)) - 1;
+                final String[] types = Resources.getSystem().getStringArray(android.R.array.phoneTypes);
+                if (types.length <= type) {
+                    return;
+                }
+
+                label = types[type];
             }
             contact.setType(label);
         } finally {

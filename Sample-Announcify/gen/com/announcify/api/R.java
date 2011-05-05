@@ -88,7 +88,7 @@ containing a value of this type.
     }
     public static final class string {
         public static final int app_name=0x7f070023;
-        public static final int event_sms=0x7f070024;
+        public static final int event=0x7f070024;
         public static final int preference_annoying_mode_summary=0x7f070022;
         public static final int preference_annoying_mode_title=0x7f070021;
         public static final int preference_break_summary=0x7f07000c;

@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.announcify.api.R;
-import com.announcify.api.background.error.ExceptionHandler;
 import com.announcify.api.background.util.PluginSettings;
 import com.markupartist.android.widget.ActionBar;
 
@@ -47,8 +46,6 @@ public class PluginActivity extends PreferenceActivity {
     }
 
     protected void onCreate(final Bundle savedInstanceState, final PluginSettings settings, final int xml) {
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
-
         setTheme(android.R.style.Theme_Light_NoTitleBar);
 
         super.onCreate(savedInstanceState);
@@ -174,6 +171,10 @@ public class PluginActivity extends PreferenceActivity {
     }
 
     protected void setCustomListeners() {
+        if (findPreference(PluginSettings.KEY_READING_WAIT) == null) {
+            return;
+        }
+
         setCustomNumberListener(PluginSettings.KEY_READING_WAIT, settings, CUSTOM_VALUE);
         setCustomNumberListener(PluginSettings.KEY_READING_BREAK, settings, CUSTOM_VALUE);
         setCustomNumberListener(PluginSettings.KEY_READING_REPEAT, settings, CUSTOM_VALUE);
@@ -208,7 +209,15 @@ public class PluginActivity extends PreferenceActivity {
 
                     public void onClick(final DialogInterface dialog, final int which) {
                         final Editor editor = getPreferenceManager().getSharedPreferences().edit();
-                        editor.putString(key, edit.getText().toString());
+
+                        try {
+                            Integer.parseInt(edit.getText().toString());
+
+                            editor.putString(key, edit.getText().toString());
+                        } catch (final NumberFormatException e) {
+                            editor.putString(key, oldValue);
+                        }
+
                         editor.commit();
                     }
                 });

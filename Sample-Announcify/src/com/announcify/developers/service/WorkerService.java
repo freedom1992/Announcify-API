@@ -36,7 +36,7 @@ public class WorkerService extends PluginService {
             final Contact contact = new Contact(this, new com.announcify.api.background.contact.lookup.Number(this), number);
 
             if (!settings.isChuckNorris()) {
-                // am i chuck norris?
+                // i am chuck norris
                 if (!ContactFilter.announcableContact(this, contact)) {
                     // not announcable? be nice and play a ringtone anyway...
                     playRingtone();
@@ -48,7 +48,7 @@ public class WorkerService extends PluginService {
             // about the contact
             final Formatter formatter = new Formatter(this, contact, settings);
 
-            // announcify!
+            // let's announcify!
             final AnnouncifyIntent announcify = new AnnouncifyIntent(this, settings);
             // use this for starting a ringtone, for example
             announcify.setStartBroadcast(ACTION_START_RINGTONE);
@@ -61,7 +61,5 @@ public class WorkerService extends PluginService {
             // ourselves in Announcify's database.
             super.onHandleIntent(intent);
         }
-
-        stopSelf();
     }
 }

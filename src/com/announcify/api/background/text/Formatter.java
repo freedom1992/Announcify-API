@@ -88,6 +88,11 @@ public class Formatter {
         text = text.replaceAll(EVENT, settings.getEventType());
 
         for (final String s : substitutes.keySet()) {
+            String temp = substitutes.get(s).getSubstitution(context, contact);
+            if (temp == null) {
+                temp = "";
+            }
+
             // TODO: i don't want to pass context and contact here everytime! ->
             // make ContactEnum inner class of Contact?
             text = text.replaceAll(s, substitutes.get(s).getSubstitution(context, contact));

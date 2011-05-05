@@ -17,7 +17,7 @@
 		android:title="@string/preference_break_title"
 		android:summary="@string/preference_break_summary"
 		android:key="preference_reading_break"
-		android:defaultValue="2" />
+		android:defaultValue="com.announcify.DEFAULT" />
 
 	<ListPreference
 		android:dialogTitle="@string/preference_repeat_title"
@@ -26,7 +26,7 @@
 		android:title="@string/preference_repeat_title"
 		android:summary="@string/preference_repeat_summary"
 		android:key="preference_reading_repeat"
-		android:defaultValue="1" />
+		android:defaultValue="com.announcify.DEFAULT" />
 
 	<ListPreference
 		android:dialogTitle="@string/preference_wait_title"
@@ -35,7 +35,7 @@
 		android:title="@string/preference_wait_title"
 		android:summary="@string/preference_wait_summary"
 		android:key="preference_reading_wait"
-		android:defaultValue="0" />
+		android:defaultValue="com.announcify.DEFAULT" />
 
 	<ListPreference
 		android:dialogTitle="@string/preference_known_title"
@@ -44,7 +44,7 @@
 		android:title="@string/preference_known_title"
 		android:summary="@string/preference_known_summary"
 		android:key="preference_reading_announcement"
-		android:defaultValue="&lt;NAME&gt;" />
+		android:defaultValue="com.announcify.DEFAULT" />
 
 	<ListPreference
 		android:dialogTitle="@string/preference_unknown_title"
@@ -53,7 +53,7 @@
 		android:title="@string/preference_unknown_title"
 		android:summary="@string/preference_unknown_summary"
 		android:key="preference_reading_unknown"
-		android:defaultValue="&lt;UNKNOWN&gt;" />
+		android:defaultValue="com.announcify.DEFAULT" />
 
 	<ListPreference
 		android:dialogTitle="@string/preference_discreet_title"
@@ -62,7 +62,7 @@
 		android:title="@string/preference_discreet_title"
 		android:summary="@string/preference_discreet_summary"
 		android:key="preference_reading_discreet"
-		android:defaultValue="&lt;NAME&gt;" />
+		android:defaultValue="com.announcify.DEFAULT" />
 
 	<CheckBoxPreference
 		android:summary="@string/preference_chuck_norris_summary"

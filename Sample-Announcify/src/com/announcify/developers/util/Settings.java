@@ -17,7 +17,7 @@ public class Settings extends PluginSettings {
     @Override
     public String getEventType() {
         // return the event you're announcifying. must be unique!
-        return context.getString(R.string.event_sms);
+        return context.getString(R.string.event);
     }
 
     @Override

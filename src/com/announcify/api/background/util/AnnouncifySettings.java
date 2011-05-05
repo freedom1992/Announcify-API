@@ -27,8 +27,8 @@ public class AnnouncifySettings {
 
     public AnnouncifySettings(Context context) {
         try {
-            if (!"com.announcify".equals(context.getPackageName())) {
-                context = context.createPackageContext("com.announcify", 0);
+            if (!"org.mailboxer.saymyname".equals(context.getPackageName())) {
+                context = context.createPackageContext("org.mailboxer.saymyname", 0);
             }
         } catch (final NameNotFoundException e) {
             e.printStackTrace();

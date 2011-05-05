@@ -30,6 +30,12 @@
   <string name="preference_read_own_summary">Could cause annoying Announcifications!</string>
   <string name="preference_read_message_title">How to announce a message</string>
   <string name="preference_read_message_summary">Which part of the message to announce?</string>
+  <string name="preference_read_mail_header_title">Read name from mail header</string>
+  <string name="preference_read_mail_header_summary">If contact isn\'t saved in addressbook</string>
+  <string name="preference_chuck_norris_title">Chuck Norris Mode (BEWARE!)</string>
+  <string name="preference_chuck_norris_summary">Announce like Chuck would do: Ignore blocklists and the like</string>
+  <string name="preference_annoying_mode_title">Annoying Mode</string>
+  <string name="preference_annoying_mode_summary">Could cause the plugin reading unnecessary messages</string>
   <string-array name="preference_list_reading_break_names">
     <item>0</item>
     <item>1</item>

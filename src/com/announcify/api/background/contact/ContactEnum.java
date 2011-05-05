@@ -130,7 +130,7 @@ public enum ContactEnum implements FormatEnum {
             if (((Contact) object).getAddress().matches("[+][0-9]+")) {
                 final StringBuilder builder = new StringBuilder();
                 for (final char c : ((Contact) object).getAddress().toCharArray()) {
-                    builder.append(c + ".");
+                    builder.append(c + " ");
                 }
                 return builder.toString();
             }
